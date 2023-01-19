@@ -6,7 +6,7 @@
   <arg name="pose_initial_z" value="1"/>
 
   <!-- <param name="robot_description" command="$(find xacro)/xacro $(find robot_description)/urdf/mobile_manipulator.urdf.xacro" /> -->
-  <param name="robot_description" textfile="$(find robot_description)/urdf/mobile_manipulator_original.urdf" />
+  <param name="robot_description" textfile="$(find robot_description)/urdf/mobile_kinect_manipulator.urdf" />
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
 	  <arg name="world_name" value="$(find postoffice_sim)/worlds/postoffice.world"/>
     <!-- <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/> -->
