@@ -1,6 +1,6 @@
 [submodule "SPACiSS"]
 	path = SPACiSS
-	url = git@github.com:maprdhm/SPACiSS.git
+	url = git@github.com:maprdhm/SPACiSS.git -b noetic
 	branch = noetic
 [submodule "ros_maps_to_pedsim"]
 	path = ros_maps_to_pedsim
