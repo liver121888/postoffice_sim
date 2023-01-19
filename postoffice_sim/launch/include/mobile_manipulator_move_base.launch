@@ -1,0 +1,32 @@
+<launch>
+  <arg name="pose_initial_x" default="0"/>
+  <arg name="pose_initial_y" default="0"/>
+  <arg name="pose_initial_theta" default="0"/>
+
+  <include file="$(find postoffice_sim)/launch/include/amcl_diff.launch">
+    <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+    <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+    <arg name="pose_initial_theta" value="$(arg pose_initial_theta)"/>
+  </include>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="/cmd_vel" to="/robot_base_velocity_controller/cmd_vel"/>
+    <rosparam file="$(find postoffice_sim)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find postoffice_sim)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find postoffice_sim)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find postoffice_sim)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find postoffice_sim)/config/base_local_planner_params.yaml" command="load" />
+  </node>
+
+  <!-- move_base for AV navigation -->
+  <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="/cmd_vel" to="/robot_base_velocity_controller/cmd_vel"/>
+    <rosparam file="$(find move_base_2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find move_base_2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find move_base_2dnav)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find move_base_2dnav)/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find move_base_2dnav)/base_local_planner_params.yaml" command="load" />
+  </node> -->
+
+
+</launch>

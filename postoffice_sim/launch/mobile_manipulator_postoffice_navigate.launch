@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="pose_initial_x" value="0"/>
+  <arg name="pose_initial_y" value="0"/>
+  <arg name="pose_initial_a" value="0"/>
+  <arg name="pose_initial_z" value="1"/>
+
+  <arg name="enable_pedsim" default="true"/>
+
+  <!--CONTROLLED = 0, TELEOPERATION = 1, SOCIAL_DRIVE = 2-->
+  <arg name="robot_mode" default="0"/>
+
+  <arg name="kbd_teleop" default="false"/>
+  <arg name="rqt_teleop" default="false"/>
+  <arg name="visualize" default="true"/>
+  <arg name="with_robot" default="true"/>
+  <arg name="simulation_factor" default="1.0"/> <!-- Speed up -->
+  <arg name="update_rate" default="30.0"/> <!-- Hz -->
+  <arg name="max_robot_speed" default="1.5"/> <!-- Hz -->
+
+  <arg name="map_enable" default="true"/>
+  <arg name="map_path" default="$(find postoffice_sim)/maps/postoffice.yaml" />
+  <group if="$(arg map_enable)">
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)"/>
+  </group>
+
+  <!-- <param name="robot_description" command="$(find xacro)/xacro $(find robot_description)/urdf/mobile_manipulator.urdf.xacro" /> -->
+  <param name="robot_description" textfile="$(find robot_description)/urdf/mobile_kinect_manipulator.urdf" />
+  <arg name="robot_description" value="$(find robot_description)/urdf/mobile_kinect_manipulator.urdf" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	  <arg name="world_name" value="$(find postoffice_sim)/worlds/postoffice.world"/>
+    <!-- <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/empty.world"/> -->
+  </include>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x $(arg pose_initial_x) -y $(arg pose_initial_y) -z $(arg pose_initial_z) -model mobile_manipulator" output="screen"/>
+  <!-- <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description_sdf -sdf -x 1 -y 2 -z 1 -model mobile_manipulator" /> -->
+  <rosparam command="load" file="$(find robot_description)/config/arm_control.yaml" />
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" />
+  <rosparam command="load" file="$(find robot_description)/config/joint_state_controller.yaml" />
+  <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" />
+  <rosparam command="load" file="$(find robot_description)/config/control.yaml" />
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner" args="robot_base_joint_publisher robot_base_velocity_controller" />
+
+  <!--Robot localization-->
+  <node pkg="robot_localization" type="ekf_localization_node" name="footprint_to_odom_ekf"> 
+      <remap from="odometry/filtered" to="odom" />
+      <rosparam command="load" file="$(find postoffice_sim)/config/ekf/footprint_to_odom.yaml" />
+  </node>
+
+  <!-- Rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find postoffice_sim)/rviz/postoffice.rviz" if="$(arg visualize)"/>
+
+  <!--Has amcl+move_base-->
+  <include file="$(find postoffice_sim)/launch/include/mobile_manipulator_move_base.launch" >
+    <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+    <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+    <arg name="pose_initial_theta" value="$(arg pose_initial_a)"/>
+  </include>
+  <node pkg="topic_tools" name="cmd_relay" type="relay" args="/cmd_vel robot_base_velocity_controller/cmd_vel" />
+
+
+  <group unless="$(arg enable_pedsim)">
+    <!-- Written in simulator.launch-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+  </group>
+
+  <group if="$(arg enable_pedsim)">
+    <!-- Simulator -->
+    <include file="$(find postoffice_sim)/launch/include/simulator.launch">
+      <arg name="kbd_teleop" value="$(arg kbd_teleop)"/>
+      <arg name="rqt_teleop" value="$(arg rqt_teleop)"/>
+      <arg name="scene_file" value="$(find postoffice_sim)scenarios/postoffice.xml"/>
+      <arg name="with_robot" value="$(arg with_robot)"/>
+      <arg name="simulation_factor" value="$(arg simulation_factor)"/>
+      <arg name="update_rate" value="$(arg update_rate)"/>
+      <arg name="default_queue_size" value="10"/>
+      <arg name="max_robot_speed" value="$(arg max_robot_speed)"/>
+      <arg name="robot_mode" value="$(arg robot_mode)"/>
+      <arg name="robot_description" value="$(arg robot_description)"/>
+      <arg name="enable_groups" value="true"/>
+      <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+      <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+      <arg name="pose_initial_theta" value="$(arg pose_initial_a)"/>
+    </include>
+
+    <!-- Visualizer -->
+    <include file="$(find pedsim_visualizer)/launch/visualizer.launch"/>
+
+    <!-- Gazebo Agent Spawner -->
+    <node name="gazebo_agent_spawner" pkg="pedsim_gazebo_plugin" type="spawn_pedsim_agents.py" />
+  </group>
+</launch>

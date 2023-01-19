@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+  <param name="robot_description" textfile="$(find robot_description)/urdf/mobile_kinect_manipulator.urdf" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  </include>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model mobile_kinect_manipulator" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+</launch>

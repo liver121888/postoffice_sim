@@ -1,0 +1,14 @@
+footprint: [[0.70, 0.65], [0.70, -0.65], [-0.70, -0.65], [-0.75, 0.65]]
+observation_sources: laser_scan_sensor point_cloud_sensor
+laser_scan_sensor:
+ sensor_frame: laser_link
+ data_type: LaserScan
+ topic: scan
+ marking: true
+ clearing: true
+point_cloud_sensor: {sensor_frame: laser_link, 
+data_type: PointCloud, 
+topic: pedsim_sensors/pedsim_people_sensor/point_cloud_local, 
+marking: true, 
+clearing: true}
+
