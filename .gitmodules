@@ -1,3 +1,0 @@
-[submodule "ros_maps_to_pedsim"]
-	path = ros_maps_to_pedsim
-	url = git@github.com:fverdoja/ros_maps_to_pedsim.git
