@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: robot_description
+    relative_path: urdf/mobile_kinect_manipulator.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/mobile_manipulator.srdf
+  CONFIG:
+    author_name: liver
+    author_email: liver121888@gmail.com
+    generated_timestamp: 1674312794
