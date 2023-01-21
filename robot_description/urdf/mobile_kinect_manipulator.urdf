@@ -317,7 +317,7 @@
     <child link="test__link_0"/>
     <origin rpy="3.14159 1.57079 3.14159" xyz="-0.0625  0      0.15"/>
     <axis xyz="0 0 1"/>
-    <limit effort="-1.0" lower="0" upper="0.075" velocity="-1.0"/>
+    <limit effort="1e6" lower="-0.01" upper="0.075" velocity="1e6"/>
   </joint>
   <link name="test__link">
     <inertial>
