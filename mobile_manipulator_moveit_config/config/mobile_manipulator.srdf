@@ -49,7 +49,7 @@
         <joint name="wrist_gripper_joint" value="3.1415"/>
     </group_state>
     <group_state name="Close" group="hand">
-        <joint name="test_link_joint_3" value="0.06"/>
+        <joint name="test_link_joint_3" value="0.045"/>
         <joint name="wrist_gripper_joint" value="3.1415"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
