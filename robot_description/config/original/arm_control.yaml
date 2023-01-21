@@ -1,11 +1,13 @@
 arm_controller:
     type: position_controllers/JointTrajectoryController
     joints:
-      - arm_base_joint
-      - shoulder_joint
-      - bottom_wrist_joint
-      - elbow_joint
-      - top_wrist_joint
+       - arm_base_joint
+       - shoulder_joint
+       - bottom_wrist_joint
+       - elbow_joint
+       - top_wrist_joint
+       - wrist_gripper_joint
+       - test_link_joint_3
     constraints:
       goal_time: 0.6
       stopped_velocity_tolerance: 0.05
@@ -13,17 +15,6 @@ arm_controller:
       shoulder: {trajectory: 0.1, goal: 0.1}
       elbow: {trajectory: 0.1, goal: 0.1}
       wrist: {trajectory: 0.1, goal: 0.1}
-    stop_trajectory_duration: 0.5
-    state_publish_rate:  25
-    action_monitor_rate: 10
-hand_controller:
-    type: position_controllers/JointTrajectoryController
-    joints:
-      - wrist_gripper_joint
-      - test_link_joint_3
-    constraints:
-      goal_time: 0.6
-      stopped_velocity_tolerance: 0.05
     stop_trajectory_duration: 0.5
     state_publish_rate:  25
     action_monitor_rate: 10
@@ -36,3 +27,5 @@ hand_controller:
       top_wrist_joint: {p: 100.0, i: 0.0, d: 0.0}
       wrist_gripper_joint: {p: 100.0, i: 0.0, d: 0.0}
       test_link_joint_3: {p: 100.0, i: 0.0, d: 0.0}
+
+

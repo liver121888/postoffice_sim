@@ -16,7 +16,7 @@ robot_base_velocity_controller:
   wheel_radius : 0.1
   base_frame_id: base_footprint
   odom_frame_id: odom
-  enable_odom_tf: true
+  enable_odom_tf: false
   estimate_velocity_from_position: false
   wheel_separation_multiplier: 1.0 
   wheel_radius_multiplier    : 1.0 
