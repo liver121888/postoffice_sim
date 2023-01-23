@@ -27,7 +27,7 @@ hand_controller:
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
-/gazebo_ros_control:
+gazebo_ros_control:
   pid_gains:
     arm_base_joint: {p: 1000.0, i: 100.0, d: 10.0}
     shoulder_joint: {p: 1000.0, i: 100.0, d: 10.0}

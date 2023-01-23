@@ -25,3 +25,9 @@ Install ROS dependency in ws:
 (Optional) Update submodules to the newest version
 
     git submodule update --remote
+
+(Important) Follow the instructions in darknet_ros to install YOLO. My GPU is NVIDIA GeForce RTX 3050 Laptop GPU.
+
+Compile the ws
+
+    catkin_make -DCMAKE_BUILD_TYPE=Release

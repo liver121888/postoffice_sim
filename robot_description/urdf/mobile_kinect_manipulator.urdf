@@ -660,22 +660,22 @@
   </transmission>
   <transmission name="gripper_trans" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="link_JOINT_3_motor">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    <actuator name="test_link_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="test_link_joint_3">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
   <transmission name="wrist_gripper_trans" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="wrist_gripper_motor">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="wrist_gripper_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
   <!--########################### GAZEBO ############################################-->

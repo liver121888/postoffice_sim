@@ -101,16 +101,7 @@
     </joint>
   </transmission>
 
-  <transmission name="gripper_trans" type="SimpleTransmission">
-    <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="link_JOINT_3_motor">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-    <joint name="test_link_joint_3">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-  </transmission>
+  <!--################################ HAND TRANSIMISSIONS ######################################-->
 
   <transmission name="wrist_gripper_trans" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
@@ -123,5 +114,14 @@
     </joint>
   </transmission>
 
-
+  <transmission name="gripper_trans" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="test_link_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="test_link_joint_3">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
 </robot>

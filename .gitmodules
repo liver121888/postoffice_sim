@@ -5,3 +5,6 @@
 	path = SPACiSS
 	url = git@github.com:maprdhm/SPACiSS.git
 	branch = noetic
+[submodule "darknet_ros"]
+	path = darknet_ros
+	url = git@github.com:leggedrobotics/darknet_ros.git

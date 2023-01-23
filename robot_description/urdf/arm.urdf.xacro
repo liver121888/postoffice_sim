@@ -154,7 +154,6 @@
 
   <!-- Gripper -->
 
-
   <joint name="wrist_gripper_joint" type="continuous">
     <axis xyz="0 0 1"/>
     <parent link="top_wrist"/>
